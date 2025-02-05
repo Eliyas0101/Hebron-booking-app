@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Confirmation</title>
+    <!-- Your custom styles or include Bootstrap or other styling libraries if needed -->
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: #ddd;
+            margin: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #ddd;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #666;
+            border: 1px solid #444;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        th,
+        td {
+            padding: 8px;
+            border-bottom: 1px solid #444;
+            color: #ddd;
+        }
+
+        .btn-group {
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            color: #fff;
+            background-color: #4caf50;
+            /* Green color for Confirm button */
+            border: 1px solid #4cae4c;
+        }
+
+        .btn-primary:hover {
+            background-color: #45a049;
+        }
+
+        .btn-secondary {
+            color: #fff;
+            background-color: #d9534f;
+            /* Red color for Cancel button */
+            border: 1px solid #d43f3a;
+        }
+
+        .btn-secondary:hover {
+            background-color: #d43f3a;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Trip Confirmation</h2>
+
+    <form method="post">
+        <table>
+            <tr>
+                <th>Client Name:</th>
+                <td>{{ client_first_name }} {{ client_last_name }}</td>
+            </tr>
+            <tr>
+                <th>Email:</th>
+                <td>{{ client_email }}</td>
+            </tr>
+            <tr>
+                <th>Phone Number:</th>
+                <td>{{ client_phone_number }}</td>
+            </tr>
+            <!-- Optional Company Name -->
+            <tr>
+                <th>Company Name:</th>
+                <td>{{ client_company_name }}</td>
+            </tr>
+            <tr>
+                <th>Pickup Date and Time:</th>
+                <td>{{ pickup_datetime.strftime('%m-%d-%Y %I:%M %p') }}</td>
+            </tr>
+            <tr>
+                <th>Pickup Location:</th>
+                <td>{{ pickup_street }}, {{ pickup_city }}, {{ pickup_state }}, {{ pickup_zip }}</td>
+            </tr>
+            <tr>
+                <th>Dropoff Location:</th>
+                <td>{{ dropoff_street }}, {{ dropoff_city }}, {{ dropoff_state }}, {{ dropoff_zip }}</td>
+            </tr>
+        </table>
+
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="confirmBooking()">Confirm</button>
+            <button type="button" class="btn btn-secondary" onclick="cancelBooking()">Cancel</button>
+        </div>
+    </form>
+
+    <script>
+        function confirmBooking() {
+            // You can add any additional logic here before confirming the booking
+            // For example, you might want to validate the data again or perform other checks
+            document.location.href = "{{ url_for('thank_you') }}";
+        }
+
+        function cancelBooking() {
+            // Redirect to the homepage without submitting the form
+            document.location.href = "{{ url_for('home') }}";
+        }
+    </script>
+
+</body>
+
+</html>
